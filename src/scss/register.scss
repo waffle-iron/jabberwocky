@@ -1,0 +1,31 @@
+$bg: #3b4b63;
+
+$msgbgone: #039be5;
+$msgbgtwo: #ade2fb;
+
+$msgcolorone: #b3e5fc;
+$msgcolortwo: #039be5;
+
+body {
+    background: $bg;
+}
+.line {
+    width:100%;
+    background: $msgbgone;
+    height:10px;
+}
+.container {
+    h1 {
+        color:#f5f5f6;
+    }
+    input {
+        width: 100%;
+        padding:10px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border:1px solid $msgbgone;
+    }
+    button {
+        background-color: #f5f5f6;
+    }
+}
