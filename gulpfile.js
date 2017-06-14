@@ -10,7 +10,10 @@ autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('scripts:transpile', function() {
     return gulp.src([
-        //
+        './src/js/Auth.js',
+        './src/js/Messages.js',
+        './src/js/Aes.js',
+        './src/js/jabberwocky.js'
     ])
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(concat('jabberwocky.js'))
@@ -23,6 +26,10 @@ gulp.task('scripts:minify', function() {
         ext: { min: 'min.js' }
     }))
     .pipe(gulp.dest('./public/js'));
+});
+
+gulp.task('scripts:watch', function() {
+    gulp.watch('./src/js/*.js', ['scripts:transpile', 'scripts:minify']);
 });
 
 gulp.task('css:scss', function() {
