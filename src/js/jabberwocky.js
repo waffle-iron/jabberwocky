@@ -1,5 +1,13 @@
-let aes = new Aes;
+var config = {
+  apiKey: "AIzaSyCPOA2gBL3mU1HktjOPT5wRReKOaGLyOso",
+  authDomain: "jabberwocky-8583d.firebaseapp.com",
+  databaseURL: "https://jabberwocky-8583d.firebaseio.com",
+  projectId: "jabberwocky-8583d",
+  storageBucket: "jabberwocky-8583d.appspot.com",
+  messagingSenderId: "867241314701"
+};
+firebase.initializeApp(config);
 
-let msg = aes.encrypt('hello'/*message*/, 'hello'/*passphrase*/);
-console.log(msg);
-console.log(aes.decrypt(msg, 'hello'));
+let auth = new Auth;
+let result = auth.createUser('test@example.com', 'password');
+console.log(result);
