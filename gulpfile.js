@@ -23,7 +23,7 @@ gulp.task('scripts:transpile', function() {
 gulp.task('scripts:minify', function() {
     return gulp.src('./build/jabberwocky.js')
     .pipe(minify({
-        ext: { min: 'min.js' }
+        ext: { min: '.min.js' }
     }))
     .pipe(gulp.dest('./public/js'));
 });
