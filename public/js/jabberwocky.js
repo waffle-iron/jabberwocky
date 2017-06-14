@@ -17,9 +17,16 @@ var Auth = function () {
 
   _createClass(Auth, [{
     key: 'createUser',
+
+    /**
+     * create a new user
+     * @param  {string} email    email address for user
+     * @param  {string} password users' password
+     * @return {string}          error message if one
+     */
     value: function createUser(email, password) {
       firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-        return rror.message;
+        return error.message;
       });
     }
   }, {
