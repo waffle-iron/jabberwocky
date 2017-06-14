@@ -65,13 +65,20 @@ var Aes = function () {
 
   _createClass(Aes, [{
     key: 'encrypt',
+
+    /**
+     * encrypt a message
+     * @param  {string} message    message to encrypt
+     * @param  {string} passphrase passphrase to use
+     * @return {string}            encrypted message
+     */
     value: function encrypt(message, passphrase) {
       return CryptoJS.AES.encrypt(message, passphrase).toString();
     }
   }, {
     key: 'decrypt',
     value: function decrypt(message, passphrase) {
-      CryptoJS.AES.decrypt(message, passphrase).toString(CryptoJS.enc.Utf8);
+      return CryptoJS.AES.decrypt(message, passphrase).toString(CryptoJS.enc.Utf8);
     }
   }]);
 
