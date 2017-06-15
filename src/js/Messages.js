@@ -1,5 +1,6 @@
 class Messages {
-  constructor(aes) {
+  constructor(database, aes) {
+    this.database = database;
     this.aes = aes;
   }
   send(userId, message) {}
