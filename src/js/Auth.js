@@ -1,7 +1,6 @@
-import * as firebase from 'firebase';
-
 class Auth {
-  constructor() {
+  constructor(auth) {
+    this.auth = auth;
     this.observer(); // start observing when the class is instantiated
   }
 
@@ -12,7 +11,7 @@ class Auth {
    * @return {string}          error message if one
    */
   createUser(email, password) {
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    this.auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
       return error.message;
     });
   }
@@ -24,7 +23,7 @@ class Auth {
    * @return {string}          error message
    */
   signIn(email, password) {
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    this.auth.signInWithEmailAndPassword(email, password).catch(function(error) {
       return errorMessage = error.message;
     });
   }
@@ -33,7 +32,7 @@ class Auth {
    * signout
    */
   signOut() {
-    firebase.auth().signOut().then(function() {
+    this.auth.signOut().then(function() {
       // Sign-out successful.
     }).catch(function(error) {
       // An error happened.
@@ -44,7 +43,7 @@ class Auth {
    * keep an eye on the current user
    */
   observer() {
-    firebase.auth().onAuthStateChanged(function(user) {
+    this.auth.onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
       } else {

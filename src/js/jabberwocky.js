@@ -8,7 +8,7 @@ var config = {
 };
 firebase.initializeApp(config);
 
-let auth = new Auth;
+let auth = new Auth(firebase.auth());
 //let result = auth.createUser('test@example.com', 'password');
 auth.signIn('test@example.com', 'password');
 //console.log(result);
