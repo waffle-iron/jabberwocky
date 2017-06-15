@@ -1,5 +1,3 @@
-import * as CryptoJS from 'crypto-js';
-
 class Aes {
   /**
    * encrypt a message

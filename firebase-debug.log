@@ -1,36 +1,28 @@
-[debug] [2017-06-13T23:22:05.391Z] ----------------------------------------------------------------------
-[debug] [2017-06-13T23:22:05.394Z] Command:      /usr/local/Cellar/node/7.3.0/bin/node /usr/local/bin/firebase serve
-[debug] [2017-06-13T23:22:05.394Z] CLI Version:  3.9.1
-[debug] [2017-06-13T23:22:05.394Z] Platform:     darwin
-[debug] [2017-06-13T23:22:05.394Z] Node Version: v7.3.0
-[debug] [2017-06-13T23:22:05.395Z] Time:         Tue Jun 13 2017 19:22:05 GMT-0400 (EDT)
-[debug] [2017-06-13T23:22:05.396Z] ----------------------------------------------------------------------
+[debug] [2017-06-15T22:04:10.330Z] ----------------------------------------------------------------------
+[debug] [2017-06-15T22:04:10.333Z] Command:      /usr/local/Cellar/node/7.3.0/bin/node /usr/local/bin/firebase serve
+[debug] [2017-06-15T22:04:10.333Z] CLI Version:  3.9.1
+[debug] [2017-06-15T22:04:10.333Z] Platform:     darwin
+[debug] [2017-06-15T22:04:10.333Z] Node Version: v7.3.0
+[debug] [2017-06-15T22:04:10.334Z] Time:         Thu Jun 15 2017 18:04:10 GMT-0400 (EDT)
+[debug] [2017-06-15T22:04:10.334Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2017-06-13T23:22:05.416Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2017-06-13T23:22:05.416Z] > authorizing via signed-in user
-[debug] [2017-06-13T23:22:05.418Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2017-06-13T23:22:05.418Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/S8Ww3lMGXjuqaZv3Q4jL45gybCioOLLXrlZ2NZrcXHA',
-  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
-  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
-  grant_type: 'refresh_token',
-  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Tue Jun 13 2017 19:22:05 GMT-0400 (EDT)
-[debug] [2017-06-13T23:22:06.080Z] <<< HTTP RESPONSE 200
-[debug] [2017-06-13T23:22:06.083Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/jabberwocky-8583d  
- Tue Jun 13 2017 19:22:06 GMT-0400 (EDT)
-[debug] [2017-06-13T23:22:07.283Z] <<< HTTP RESPONSE 200
-[debug] [2017-06-13T23:22:07.285Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/jabberwocky-8583d/tokens  
- Tue Jun 13 2017 19:22:07 GMT-0400 (EDT)
-[debug] [2017-06-13T23:22:07.905Z] <<< HTTP RESPONSE 200
+[debug] [2017-06-15T22:04:10.346Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-06-15T22:04:10.346Z] > authorizing via signed-in user
+[debug] [2017-06-15T22:04:10.349Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/jabberwocky-8583d  
+ Thu Jun 15 2017 18:04:10 GMT-0400 (EDT)
+[debug] [2017-06-15T22:04:15.647Z] <<< HTTP RESPONSE 200
+[debug] [2017-06-15T22:04:15.649Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/jabberwocky-8583d/tokens  
+ Thu Jun 15 2017 18:04:15 GMT-0400 (EDT)
+[debug] [2017-06-15T22:04:16.433Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/levidurfee/Projects/jabberwocky'...
 [info] 
-[debug] [2017-06-13T23:22:07.911Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/jabberwocky-8583d  
- Tue Jun 13 2017 19:22:07 GMT-0400 (EDT)
-[debug] [2017-06-13T23:22:08.314Z] <<< HTTP RESPONSE 200
-[debug] [2017-06-13T23:22:08.315Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/867241314701/clients/_:getWebAppConfig  
- Tue Jun 13 2017 19:22:08 GMT-0400 (EDT)
-[debug] [2017-06-13T23:22:08.880Z] <<< HTTP RESPONSE 200
-[info] i  hosting: Serving hosting files from: src
+[debug] [2017-06-15T22:04:16.439Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/jabberwocky-8583d  
+ Thu Jun 15 2017 18:04:16 GMT-0400 (EDT)
+[debug] [2017-06-15T22:04:16.795Z] <<< HTTP RESPONSE 200
+[debug] [2017-06-15T22:04:16.795Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/867241314701/clients/_:getWebAppConfig  
+ Thu Jun 15 2017 18:04:16 GMT-0400 (EDT)
+[debug] [2017-06-15T22:04:17.257Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
 [info] ✔  hosting: Local server: http://localhost:5000
 
