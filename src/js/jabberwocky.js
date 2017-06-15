@@ -9,7 +9,9 @@ var config = {
 firebase.initializeApp(config);
 
 let auth = new Auth;
-let result = auth.createUser('test@example.com', 'password');
-console.log(result);
+//let result = auth.createUser('test@example.com', 'password');
+auth.signIn('test@example.com', 'password');
+//console.log(result);
 let database = firebase.database();
-messages = new Messages(database, new Aes);
+let messages = new Messages(database, new Aes);
+messages.send('hello');

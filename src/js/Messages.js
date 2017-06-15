@@ -5,10 +5,11 @@ class Messages {
   }
 
   send(message) {
-    this.database.ref('messages/').push({
+    return this.database.ref('messages/').push({
+      'date': Date(),
       'message': message
     }).key;
   }
-  
+
   read() {}
 }
