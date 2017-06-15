@@ -11,3 +11,5 @@ firebase.initializeApp(config);
 let auth = new Auth;
 let result = auth.createUser('test@example.com', 'password');
 console.log(result);
+let database = firebase.database();
+messages = new Messages(database, new Aes);

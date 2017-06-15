@@ -3,6 +3,12 @@ class Messages {
     this.database = database;
     this.aes = aes;
   }
-  send(userId, message) {}
+
+  send(message) {
+    this.database.ref('messages/').push({
+      'message': message
+    }).key;
+  }
+  
   read() {}
 }
