@@ -1,6 +1,10 @@
 import * as firebase from 'firebase';
 
 class Auth {
+  constructor() {
+    this.observer(); // start observing when the class is instantiated
+  }
+
   /**
    * create a new user
    * @param  {string} email    email address for user
