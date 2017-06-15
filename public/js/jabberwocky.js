@@ -113,6 +113,7 @@ var Messages = function () {
       var el = document.getElementById(element);
       el.value += data.date + "\n";
       el.value += data.message + "\n";
+      el.scrollTop = el.scrollHeight;
     }
   }]);
 
