@@ -25,6 +25,9 @@ class Auth {
     });
   }
 
+  /**
+   * signout
+   */
   signOut() {
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
@@ -33,6 +36,9 @@ class Auth {
     });
   }
 
+  /**
+   * keep an eye on the current user
+   */
   observer() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
