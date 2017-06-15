@@ -8,9 +8,11 @@ echo -n "Enter the issue # and press [ENTER]: "
 read issue
 echo
 
+git add .
+
 if [ "$issue" == "" ]; then
-	git commit -a -m "[$name] $msg"
+	git commit -m "[$name] $msg"
 else
-	git commit -a -m "[$name] $msg (#$issue)"
+	git commit -m "[$name] $msg (#$issue)"
 fi
 echo
