@@ -13,7 +13,17 @@ class Auth {
     });
   }
 
-  signIn(email, password) {}
+  /**
+   * sign-in the user
+   * @param  {string} email    email address for user
+   * @param  {string} password users' password
+   * @return {string}          error message
+   */
+  signIn(email, password) {
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      return errorMessage = error.message;
+    });
+  }
 
   signOut() {}
 
