@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -8,6 +8,7 @@ var Auth = function () {
   function Auth(auth) {
     _classCallCheck(this, Auth);
 
+    this.user = false;
     this.auth = auth;
     this.observer(); // start observing when the class is instantiated
   }
@@ -21,7 +22,7 @@ var Auth = function () {
 
 
   _createClass(Auth, [{
-    key: "createUser",
+    key: 'createUser',
     value: function createUser(email, password) {
       this.auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
         return error.message;
@@ -36,9 +37,9 @@ var Auth = function () {
      */
 
   }, {
-    key: "signIn",
+    key: 'signIn',
     value: function signIn(email, password) {
-      this.auth.signInWithEmailAndPassword(email, password).catch(function (error) {
+      return this.auth.signInWithEmailAndPassword(email, password).catch(function (error) {
         return errorMessage = error.message;
       });
     }
@@ -48,7 +49,7 @@ var Auth = function () {
      */
 
   }, {
-    key: "signOut",
+    key: 'signOut',
     value: function signOut() {
       this.auth.signOut().then(function () {
         // Sign-out successful.
@@ -62,14 +63,31 @@ var Auth = function () {
      */
 
   }, {
-    key: "observer",
+    key: 'observer',
     value: function observer() {
+      var self = this;
       this.auth.onAuthStateChanged(function (user) {
         if (user) {
-          // User is signed in.
+          self.user = true;
+          // hide login
+          var login = document.getElementById('login');
+          login.style.display = 'none';
+          // show chat
+          var chat = document.getElementById('chat');
+          var main = document.getElementById('main');
+          main.innerHTML = '';
+          var clone = document.importNode(chat.content, true);
+          main.appendChild(clone);
+          var send = document.getElementById('send');
+          send.onclick = function () {
+            var msgBox = document.getElementById('msg');
+            messages.send(msgBox.value);
+            msgBox.value = '';
+          };
+          messages.read('msgs');
         } else {
-            // No user is signed in.
-          }
+          self.user = false;
+        }
       });
     }
   }]);
@@ -161,28 +179,37 @@ var Aes = function () {
 }();
 'use strict';
 
-// var config = {
-//   apiKey: "AIzaSyCPOA2gBL3mU1HktjOPT5wRReKOaGLyOso",
-//   authDomain: "jabberwocky-8583d.firebaseapp.com",
-//   databaseURL: "https://jabberwocky-8583d.firebaseio.com",
-//   projectId: "jabberwocky-8583d",
-//   storageBucket: "jabberwocky-8583d.appspot.com",
-//   messagingSenderId: "867241314701"
-// };
-// firebase.initializeApp(config);
-
 var auth = new Auth(firebase.auth());
+var database = firebase.database();
+var main = document.getElementById('main');
+console.log(auth.user);
+if (!auth.user) {
+	var login = document.getElementById('login');
+	var clone = document.importNode(login.content, true);
+	main.appendChild(clone);
+	var loginBtn = document.getElementById('login__btn');
+	loginBtn.onclick = function () {
+		var username = document.getElementById('username');
+		var password = document.getElementById('password');
+		console.log('username', username.value);
+		var result = auth.signIn(username.value, password.value);
+	};
+} else {
+	console.log('logged in');
+}
+
 //let result = auth.createUser('test@example.com', 'password');
 //auth.signIn('test@example.com', 'password');
 //console.log(result);
-var database = firebase.database();
+
+
 var messages = new Messages(database, new Aes());
 //messages.send('hello');
 
-var send = document.getElementById('send');
-send.onclick = function () {
-	var msgBox = document.getElementById('msg');
-	messages.send(msgBox.value);
-	msgBox.value = '';
-};
-messages.read('msgs');
+// let send = document.getElementById('send');
+// send.onclick = function() {
+// 	let msgBox = document.getElementById('msg');
+// 	messages.send(msgBox.value);
+// 	msgBox.value = '';
+// };
+// messages.read('msgs');

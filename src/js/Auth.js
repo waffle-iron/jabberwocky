@@ -1,5 +1,6 @@
 class Auth {
   constructor(auth) {
+    this.user = false;
     this.auth = auth;
     this.observer(); // start observing when the class is instantiated
   }
@@ -23,7 +24,7 @@ class Auth {
    * @return {string}          error message
    */
   signIn(email, password) {
-    this.auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+    return this.auth.signInWithEmailAndPassword(email, password).catch(function(error) {
       return errorMessage = error.message;
     });
   }
@@ -43,11 +44,29 @@ class Auth {
    * keep an eye on the current user
    */
   observer() {
+    var self = this;
     this.auth.onAuthStateChanged(function(user) {
       if (user) {
-        // User is signed in.
+        /* TODO: move this-it doesn't belong here. */
+        self.user = true;
+        // hide login
+        let login = document.getElementById('login');
+        login.style.display = 'none';
+        // show chat
+        let chat = document.getElementById('chat');
+        let main = document.getElementById('main');
+        main.innerHTML = '';
+        let clone = document.importNode(chat.content, true);
+        main.appendChild(clone);
+        let send = document.getElementById('send');
+        send.onclick = function() {
+          let msgBox = document.getElementById('msg');
+          messages.send(msgBox.value);
+          msgBox.value = '';
+        };
+        messages.read('msgs');
       } else {
-        // No user is signed in.
+        self.user = false;
       }
     });
   }

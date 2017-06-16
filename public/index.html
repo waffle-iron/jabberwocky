@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test</title>
+	<title>jabberwocky chat</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/css/skeleton.css">
@@ -32,15 +32,22 @@
 </div>
 <div class="container">
 	<div class="row">
-		<div class="twelve columns">
-			<textarea id="msgs" readonly="readonly"></textarea>
-
-			<input type="text" name="msg" id="msg">
-			<button id="send">Send</button>
+		<div class="twelve columns" id="main">
+			
 		</div>
 	</div>
 </div>
+<template id="login">
+	<input type="text" id="username" name="">
+	<input type="password" id="password" name="">
+	<button id="login__btn">login</button>
+</template>
+<template id="chat">
+	<textarea id="msgs" readonly="readonly"></textarea>
 
+	<input type="text" name="msg" id="msg">
+	<button id="send">Send</button>
+</template>
 <script src="/__/firebase/3.9.0/firebase-app.js"></script>
 <script src="/__/firebase/3.9.0/firebase-auth.js"></script>
 <script src="/__/firebase/3.9.0/firebase-database.js"></script>
