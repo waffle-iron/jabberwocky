@@ -61,7 +61,7 @@ class Auth {
         let send = document.getElementById('send');
         send.onclick = function() {
           let msgBox = document.getElementById('msg');
-          messages.send(msgBox.value);
+          messages.send(msgBox.value, user.email);
           msgBox.value = '';
         };
         messages.read('msgs');

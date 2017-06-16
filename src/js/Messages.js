@@ -4,9 +4,10 @@ class Messages {
     this.aes = aes;
   }
 
-  send(message) {
+  send(message, from) {
     return this.database.ref('messages/').push({
       'date': Date(),
+      'user': from,
       'message': message
     }).key;
   }
@@ -22,7 +23,7 @@ class Messages {
   update(element, data) {
     let el = document.getElementById(element);
     el.value += data.date + "\n";
-    el.value += data.message + "\n";
+    el.value += data.user + ': ' + data.message + "\n";
     el.scrollTop = el.scrollHeight;
   }
 }

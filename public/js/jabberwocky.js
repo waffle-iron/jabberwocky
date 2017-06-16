@@ -68,6 +68,7 @@ var Auth = function () {
       var self = this;
       this.auth.onAuthStateChanged(function (user) {
         if (user) {
+          /* TODO: move this-it doesn't belong here. */
           self.user = true;
           // hide login
           var login = document.getElementById('login');
@@ -81,7 +82,7 @@ var Auth = function () {
           var send = document.getElementById('send');
           send.onclick = function () {
             var msgBox = document.getElementById('msg');
-            messages.send(msgBox.value);
+            messages.send(msgBox.value, user.email);
             msgBox.value = '';
           };
           messages.read('msgs');
@@ -110,9 +111,10 @@ var Messages = function () {
 
   _createClass(Messages, [{
     key: 'send',
-    value: function send(message) {
+    value: function send(message, from) {
       return this.database.ref('messages/').push({
         'date': Date(),
+        'user': from,
         'message': message
       }).key;
     }
@@ -130,7 +132,7 @@ var Messages = function () {
     value: function update(element, data) {
       var el = document.getElementById(element);
       el.value += data.date + "\n";
-      el.value += data.message + "\n";
+      el.value += data.user + ': ' + data.message + "\n";
       el.scrollTop = el.scrollHeight;
     }
   }]);
