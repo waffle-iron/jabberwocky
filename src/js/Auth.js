@@ -1,8 +1,9 @@
 class Auth {
-  constructor(auth) {
+  constructor(auth, showLogin, showChat) {
     this.user = false;
     this.auth = auth;
-    this.observer(); // start observing when the class is instantiated
+    this.showLogin = showLogin;
+    this.showChat = showChat;
   }
 
   /**
@@ -34,40 +35,9 @@ class Auth {
    */
   signOut() {
     this.auth.signOut().then(function() {
-      // Sign-out successful.
+      this.showLogin();
     }).catch(function(error) {
       // An error happened.
-    });
-  }
-
-  /**
-   * keep an eye on the current user
-   */
-  observer() {
-    var self = this;
-    this.auth.onAuthStateChanged(function(user) {
-      if (user) {
-        /* TODO: move this-it doesn't belong here. */
-        self.user = true;
-        // hide login
-        let login = document.getElementById('login');
-        login.style.display = 'none';
-        // show chat
-        let chat = document.getElementById('chat');
-        let main = document.getElementById('main');
-        main.innerHTML = '';
-        let clone = document.importNode(chat.content, true);
-        main.appendChild(clone);
-        let send = document.getElementById('send');
-        send.onclick = function() {
-          let msgBox = document.getElementById('msg');
-          messages.send(msgBox.value, user.email);
-          msgBox.value = '';
-        };
-        messages.read('msgs');
-      } else {
-        self.user = false;
-      }
     });
   }
 }

@@ -20,7 +20,7 @@ gulp.task('scripts:transpile', function() {
     .pipe(gulp.dest('./build'));
 });
 
-gulp.task('scripts:minify', function() {
+gulp.task('scripts:minify', ['scripts:transpile'], function() {
     return gulp.src('./build/jabberwocky.js')
     .pipe(minify({
         ext: { min: '.min.js' }

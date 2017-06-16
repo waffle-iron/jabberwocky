@@ -1,16 +1,17 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Auth = function () {
-  function Auth(auth) {
+  function Auth(auth, showLogin, showChat) {
     _classCallCheck(this, Auth);
 
     this.user = false;
     this.auth = auth;
-    this.observer(); // start observing when the class is instantiated
+    this.showLogin = showLogin;
+    this.showChat = showChat;
   }
 
   /**
@@ -22,7 +23,7 @@ var Auth = function () {
 
 
   _createClass(Auth, [{
-    key: 'createUser',
+    key: "createUser",
     value: function createUser(email, password) {
       this.auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
         return error.message;
@@ -37,7 +38,7 @@ var Auth = function () {
      */
 
   }, {
-    key: 'signIn',
+    key: "signIn",
     value: function signIn(email, password) {
       return this.auth.signInWithEmailAndPassword(email, password).catch(function (error) {
         return errorMessage = error.message;
@@ -49,46 +50,12 @@ var Auth = function () {
      */
 
   }, {
-    key: 'signOut',
+    key: "signOut",
     value: function signOut() {
       this.auth.signOut().then(function () {
-        // Sign-out successful.
+        this.showLogin();
       }).catch(function (error) {
         // An error happened.
-      });
-    }
-
-    /**
-     * keep an eye on the current user
-     */
-
-  }, {
-    key: 'observer',
-    value: function observer() {
-      var self = this;
-      this.auth.onAuthStateChanged(function (user) {
-        if (user) {
-          /* TODO: move this-it doesn't belong here. */
-          self.user = true;
-          // hide login
-          var login = document.getElementById('login');
-          login.style.display = 'none';
-          // show chat
-          var chat = document.getElementById('chat');
-          var main = document.getElementById('main');
-          main.innerHTML = '';
-          var clone = document.importNode(chat.content, true);
-          main.appendChild(clone);
-          var send = document.getElementById('send');
-          send.onclick = function () {
-            var msgBox = document.getElementById('msg');
-            messages.send(msgBox.value, user.email);
-            msgBox.value = '';
-          };
-          messages.read('msgs');
-        } else {
-          self.user = false;
-        }
       });
     }
   }]);
@@ -181,37 +148,85 @@ var Aes = function () {
 }();
 'use strict';
 
-var auth = new Auth(firebase.auth());
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Jabberwocky = function () {
+    function Jabberwocky(auth, messages) {
+        _classCallCheck(this, Jabberwocky);
+
+        this.showLogin();
+        this.auth = auth;
+        this.messages = messages;
+        this.email = '';
+        this.observer();
+    }
+
+    _createClass(Jabberwocky, [{
+        key: 'showLogin',
+        value: function showLogin() {
+            var login = document.getElementById('login');
+            var main = document.getElementById('main');
+            main.innerHTML = '';
+            var clone = document.importNode(login.content, true);
+            main.appendChild(clone);
+            var loginBtn = document.getElementById('login__btn');
+            loginBtn.onclick = function () {
+                var username = document.getElementById('username');
+                var password = document.getElementById('password');
+                var result = auth.signIn(username.value, password.value);
+                return false;
+            };
+        }
+    }, {
+        key: 'showChat',
+        value: function showChat() {
+            var self = this;
+            // hide login
+            var login = document.getElementById('login');
+            login.style.display = 'none';
+            // show chat
+            var chat = document.getElementById('chat');
+            var main = document.getElementById('main');
+            main.innerHTML = '';
+            var clone = document.importNode(chat.content, true);
+            main.appendChild(clone);
+            var send = document.getElementById('send');
+            send.onclick = function () {
+                var msgBox = document.getElementById('msg');
+                self.messages.send(msgBox.value, self.email);
+                msgBox.value = '';
+                return false;
+            };
+            var logout = document.getElementById('logout');
+            logout.onclick = function () {
+                self.auth.signOut();
+                self.showLogin();
+                return false;
+            };
+            this.messages.read('msgs');
+        }
+    }, {
+        key: 'observer',
+        value: function observer() {
+            var self = this;
+            this.auth.onAuthStateChanged(function (user) {
+                if (user) {
+                    self.email = user.email;
+                    self.showChat();
+                }
+            });
+        }
+    }]);
+
+    return Jabberwocky;
+}();
+
+var fbAuth = firebase.auth();
 var database = firebase.database();
-var main = document.getElementById('main');
-console.log(auth.user);
-if (!auth.user) {
-	var login = document.getElementById('login');
-	var clone = document.importNode(login.content, true);
-	main.appendChild(clone);
-	var loginBtn = document.getElementById('login__btn');
-	loginBtn.onclick = function () {
-		var username = document.getElementById('username');
-		var password = document.getElementById('password');
-		console.log('username', username.value);
-		var result = auth.signIn(username.value, password.value);
-	};
-} else {
-	console.log('logged in');
-}
-
-//let result = auth.createUser('test@example.com', 'password');
-//auth.signIn('test@example.com', 'password');
-//console.log(result);
-
 
 var messages = new Messages(database, new Aes());
-//messages.send('hello');
+var auth = new Auth(fbAuth);
 
-// let send = document.getElementById('send');
-// send.onclick = function() {
-// 	let msgBox = document.getElementById('msg');
-// 	messages.send(msgBox.value);
-// 	msgBox.value = '';
-// };
-// messages.read('msgs');
+var jw = new Jabberwocky(fbAuth, messages);
