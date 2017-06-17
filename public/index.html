@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>jabberwocky chat</title>
-	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="/css/skeleton.css">
-	<style type="text/css">
-		textarea {height:200px;}
-		textarea, input {display: block;width:100%;}
-		.stripe {width:100%;height:15px;background:#002f6c;}
-		.header {background: #01579b; color:#fff;margin-bottom:20px;}
-		header {font-size:20px;line-height: 40px;}
-		button, button:active, button:focus {
-			background-color:#01579b;
-			color:#fff;
-			-webkit-transition: background-color .3s, color .3s;
-			transition: background-color .3s, color .3s;
-		}
-		button:hover {
-			background-color: #4f83cc;
-			color:#000;
-		}
-		#logout {position: fixed;top:20px;right:50px;color:#fff;}
-	</style>
+    <title>jabberwocky chat</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/skeleton.css">
+    <style type="text/css">
+        textarea {height:200px;}
+        textarea, input {display: block;width:100%;}
+        .stripe {width:100%;height:15px;background:#002f6c;}
+        .header {background: #01579b; color:#fff;margin-bottom:20px;}
+        header {font-size:20px;line-height: 40px;}
+        button, button:active, button:focus {
+            background-color:#01579b;
+            color:#fff;
+            -webkit-transition: background-color .3s, color .3s;
+            transition: background-color .3s, color .3s;
+        }
+        button:hover {
+            background-color: #4f83cc;
+            color:#000;
+        }
+        #logout {position: fixed;top:20px;right:50px;color:#fff;}
+    </style>
 </head>
 <body>
 <script>
@@ -36,30 +36,30 @@
 </script>
 <div class="stripe"></div>
 <div class="header">
-	<div class="container">
-		<header>jabberwocky</header>
-	</div>
+    <div class="container">
+        <header>jabberwocky</header>
+    </div>
 </div>
 <div class="container">
-	<div class="row">
-		<div class="twelve columns" id="main">
-			
-		</div>
-	</div>
+    <div class="row">
+        <div class="twelve columns" id="main">
+            
+        </div>
+    </div>
 </div>
 <template id="login">
-	<input type="email" id="username" name="">
-	<input type="password" id="password" name="">
-	<button id="login__btn">login</button>
+    <input type="email" id="username" name="">
+    <input type="password" id="password" name="">
+    <button id="login__btn">login</button>
 </template>
 <template id="chat">
-	<textarea id="msgs" readonly="readonly"></textarea>
+    <textarea id="msgs" readonly="readonly"></textarea>
 
-	<input type="text" name="msg" id="msg">
-	<button id="send">Send</button>
-	<div class="row">
-		<a href="#" id="logout">logout</a>
-	</div>
+    <input type="text" name="msg" id="msg">
+    <button id="send">Send</button>
+    <div class="row">
+        <a href="#" id="logout">logout</a>
+    </div>
 </template>
 <script src="/__/firebase/3.9.0/firebase-app.js"></script>
 <script src="/__/firebase/3.9.0/firebase-auth.js"></script>
