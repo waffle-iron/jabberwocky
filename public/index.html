@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 	<title>jabberwocky chat</title>
 	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/css/normalize.css">
@@ -24,6 +25,31 @@
 		}
 		#logout {position: fixed;top:20px;right:50px;color:#fff;}
 	</style>
+=======
+    <title>jabberwocky chat</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/skeleton.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <style type="text/css">
+        textarea {height:200px;}
+        textarea, input {display: block;width:100%;}
+        .stripe {width:100%;height:15px;background:#002f6c;}
+        .header {background: #01579b; color:#fff;margin-bottom:20px;}
+        header {font-size:20px;line-height: 40px;}
+        button, button:active, button:focus {
+            background-color:#01579b;
+            color:#fff;
+            -webkit-transition: background-color .3s, color .3s;
+            transition: background-color .3s, color .3s;
+        }
+        button:hover {
+            background-color: #4f83cc;
+            color:#000;
+        }
+        #logout {position: fixed;top:20px;right:50px;color:#fff;}
+    </style>
+>>>>>>> a145070ada083c3846c280a34fde1d5a4c7a3f80
 </head>
 <body>
 <script>
@@ -37,30 +63,42 @@
 </script>
 <div class="stripe"></div>
 <div class="header">
-	<div class="container">
-		<header>jabberwocky</header>
-	</div>
+    <div class="container">
+        <header>jabberwocky</header>
+    </div>
 </div>
 <div class="container">
-	<div class="row">
-		<div class="twelve columns" id="main">
-			
-		</div>
-	</div>
+    <div class="row">
+        <div class="twelve columns" id="main">
+            
+        </div>
+    </div>
 </div>
+<template id="register">
+    <h2>Register</h2>
+    <input type="email" id="register__username" placeholder="email address">
+    <input type="password" id="register__password" placeholder="password">
+    <input type="password" id="reigster__confirm_password" placeholder="confirm password">
+    <button id="register__btn">register</button>
+</template>
 <template id="login">
-	<input type="email" id="username" name="">
-	<input type="password" id="password" name="">
-	<button id="login__btn">login</button>
+    <h2>Login</h2>
+    <input type="email" id="username" placeholder="email address">
+    <input type="password" id="password" placeholder="password">
+    <button id="login__btn">login</button>
 </template>
 <template id="chat">
+<<<<<<< HEAD
 	<div id="msgs"></div>
+=======
+    <textarea id="msgs" readonly="readonly"></textarea>
+>>>>>>> a145070ada083c3846c280a34fde1d5a4c7a3f80
 
-	<input type="text" name="msg" id="msg">
-	<button id="send">Send</button>
-	<div class="row">
-		<a href="#" id="logout">logout</a>
-	</div>
+    <input type="text" name="msg" id="msg">
+    <button id="send">Send</button>
+    <div class="row">
+        <a href="#" id="logout">logout</a>
+    </div>
 </template>
 <script src="/__/firebase/3.9.0/firebase-app.js"></script>
 <script src="/__/firebase/3.9.0/firebase-auth.js"></script>
