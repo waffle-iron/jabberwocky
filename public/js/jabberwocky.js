@@ -187,10 +187,6 @@ var Jabberwocky = function () {
     _classCallCheck(this, Jabberwocky);
 
     this.showLogin();
-<<<<<<< HEAD
-=======
-    this.showRegister();
->>>>>>> a145070ada083c3846c280a34fde1d5a4c7a3f80
     this.auth = auth;
     this.messages = messages;
     this.email = '';
@@ -214,7 +210,6 @@ var Jabberwocky = function () {
       };
     }
   }, {
-<<<<<<< HEAD
     key: 'sendMessage',
     value: function sendMessage() {
       var self = this;
@@ -248,48 +243,6 @@ var Jabberwocky = function () {
         }
       };
 
-=======
-    key: 'showRegister',
-    value: function showRegister() {
-      var register = document.getElementById('register');
-      var main = document.getElementById('main');
-      var clone = document.importNode(register.content, true);
-      main.appendChild(clone);
-
-      var registerBtn = document.getElementById('register__btn');
-      registerBtn.onclick = function () {
-        var username = document.getElementById('register__username');
-        var password = document.getElementById('register__password');
-        var confirmPassword = document.getElementById('reigster__confirm_password');
-        if (password.value !== confirmPassword.value) {
-          console.error('passwords do not match');
-          return;
-        }
-        var result = auth.createUser(username.value, password.value);
-        return false;
-      };
-    }
-  }, {
-    key: 'showChat',
-    value: function showChat() {
-      var self = this;
-      // hide login
-      var login = document.getElementById('login');
-      login.style.display = 'none';
-      // show chat
-      var chat = document.getElementById('chat');
-      var main = document.getElementById('main');
-      main.innerHTML = '';
-      var clone = document.importNode(chat.content, true);
-      main.appendChild(clone);
-      var send = document.getElementById('send');
-      send.onclick = function () {
-        var msgBox = document.getElementById('msg');
-        self.messages.send(msgBox.value, self.email);
-        msgBox.value = '';
-        return false;
-      };
->>>>>>> a145070ada083c3846c280a34fde1d5a4c7a3f80
       var logout = document.getElementById('logout');
       logout.onclick = function () {
         self.auth.signOut();
