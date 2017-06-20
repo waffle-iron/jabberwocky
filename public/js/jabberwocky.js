@@ -99,8 +99,41 @@ var Messages = function () {
     key: 'update',
     value: function update(element, data) {
       var el = document.getElementById(element);
-      el.value += data.date + "\n";
+
+      var msg = document.createElement("div");
       el.value += data.user + ': ' + this.aes.decrypt(data.message, data.user) + "\n";
+      var date = document.createElement("span");
+      var user = document.createElement("span");
+      var content = document.createElement("span");
+
+      msg.className = "msg";
+      date.className = "date";
+      user.className = "user";
+      content.className = "content";
+
+      var ts = new Date(data.date);
+      var m = ts.getMonth() + 1;
+      var d = ts.getDate();
+      var y = ts.getFullYear();
+      ts = m + "/" + d + "/" + y;
+
+      var textUser = document.createTextNode(data.user);
+      var textDate = document.createTextNode(ts);
+      var textContent = document.createTextNode(
+        this.aes.decrypt(data.message, data.user)
+      );
+
+      date.appendChild(textDate);
+      user.appendChild(textUser);
+      content.appendChild(textContent);
+
+      msg.appendChild(user);
+      msg.appendChild(date);
+      msg.appendChild(content);
+      el.appendChild(msg);
+
+      //el.value += data.date + "\n";
+      //el.value += data.user + ': ' + data.message + "\n";
       el.scrollTop = el.scrollHeight;
     }
   }]);
@@ -158,7 +191,6 @@ var Jabberwocky = function () {
     _classCallCheck(this, Jabberwocky);
 
     this.showLogin();
-    this.showRegister();
     this.auth = auth;
     this.messages = messages;
     this.email = '';
@@ -182,25 +214,15 @@ var Jabberwocky = function () {
       };
     }
   }, {
-    key: 'showRegister',
-    value: function showRegister() {
-      var register = document.getElementById('register');
-      var main = document.getElementById('main');
-      var clone = document.importNode(register.content, true);
-      main.appendChild(clone);
-
-      var registerBtn = document.getElementById('register__btn');
-      registerBtn.onclick = function () {
-        var username = document.getElementById('register__username');
-        var password = document.getElementById('register__password');
-        var confirmPassword = document.getElementById('reigster__confirm_password');
-        if (password.value !== confirmPassword.value) {
-          console.error('passwords do not match');
-          return;
-        }
-        var result = auth.createUser(username.value, password.value);
+    key: 'sendMessage',
+    value: function sendMessage() {
+      var self = this;
+      var msgBox = document.getElementById('msg');
+      if (msgBox.value != "") {
+        self.messages.send(msgBox.value, self.email);
+        msgBox.value = '';
         return false;
-      };
+      }
     }
   }, {
     key: 'showChat',
@@ -215,13 +237,16 @@ var Jabberwocky = function () {
       main.innerHTML = '';
       var clone = document.importNode(chat.content, true);
       main.appendChild(clone);
+
       var send = document.getElementById('send');
-      send.onclick = function () {
-        var msgBox = document.getElementById('msg');
-        self.messages.send(msgBox.value, self.email);
-        msgBox.value = '';
-        return false;
+      send.onclick = this.sendMessage;
+
+      msg.onkeypress = function () {
+        if (e.keyCode == 13) {
+          self.sendMessage();
+        }
       };
+
       var logout = document.getElementById('logout');
       logout.onclick = function () {
         self.auth.signOut();
