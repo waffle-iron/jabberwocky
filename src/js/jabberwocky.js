@@ -44,7 +44,7 @@ class Jabberwocky {
         let send = document.getElementById('send');
         send.onclick = this.sendMessage;
 
-        msg.onkeypress = function(){
+        msg.onkeypress = function(e){
           if(e.keyCode == 13){
             self.sendMessage();
           }
