@@ -101,7 +101,6 @@ var Messages = function () {
       var el = document.getElementById(element);
 
       var msg = document.createElement("div");
-      el.value += data.user + ': ' + this.aes.decrypt(data.message, data.user) + "\n";
       var date = document.createElement("span");
       var user = document.createElement("span");
       var content = document.createElement("span");
@@ -119,9 +118,7 @@ var Messages = function () {
 
       var textUser = document.createTextNode(data.user);
       var textDate = document.createTextNode(ts);
-      var textContent = document.createTextNode(
-        this.aes.decrypt(data.message, data.user)
-      );
+      var textContent = document.createTextNode(this.aes.decrypt(data.message, data.user));
 
       date.appendChild(textDate);
       user.appendChild(textUser);

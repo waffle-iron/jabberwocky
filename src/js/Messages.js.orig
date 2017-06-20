@@ -55,6 +55,5 @@ class Messages {
 
     //el.value += data.date + "\n";
     //el.value += data.user + ': ' + data.message + "\n";
-    el.scrollTop = el.scrollHeight;
   }
 }
