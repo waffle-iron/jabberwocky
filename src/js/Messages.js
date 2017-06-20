@@ -5,10 +5,11 @@ class Messages {
   }
 
   send(message, from) {
+    var self = this;
     return this.database.ref('messages/').push({
       'date': Date(),
       'user': from,
-      'message': message
+      'message': self.aes.encrypt(message, from)
     }).key;
   }
 
@@ -39,13 +40,13 @@ class Messages {
     let y = ts.getFullYear();
     ts = m + "/" + d + "/" + y;
 
-    let textUser = document.createTextNode(data.user)
-    let textDate = document.createTextNode(ts)
-    let textContent = document.createTextNode(data.message)
+    let textUser = document.createTextNode(data.user);
+    let textDate = document.createTextNode(ts);
+    let textContent = document.createTextNode(this.aes.decrypt(data.message, data.user));
 
-    date.appendChild(textDate)
-    user.appendChild(textUser)
-    content.appendChild(textContent)
+    date.appendChild(textDate);
+    user.appendChild(textUser);
+    content.appendChild(textContent);
 
     msg.appendChild(user);
     msg.appendChild(date);

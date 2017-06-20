@@ -79,10 +79,11 @@ var Messages = function () {
   _createClass(Messages, [{
     key: 'send',
     value: function send(message, from) {
+      var self = this;
       return this.database.ref('messages/').push({
         'date': Date(),
         'user': from,
-        'message': message
+        'message': self.aes.encrypt(message, from)
       }).key;
     }
   }, {
@@ -117,7 +118,7 @@ var Messages = function () {
 
       var textUser = document.createTextNode(data.user);
       var textDate = document.createTextNode(ts);
-      var textContent = document.createTextNode(data.message);
+      var textContent = document.createTextNode(this.aes.decrypt(data.message, data.user));
 
       date.appendChild(textDate);
       user.appendChild(textUser);
@@ -237,7 +238,7 @@ var Jabberwocky = function () {
       var send = document.getElementById('send');
       send.onclick = this.sendMessage;
 
-      msg.onkeypress = function () {
+      msg.onkeypress = function (e) {
         if (e.keyCode == 13) {
           self.sendMessage();
         }
