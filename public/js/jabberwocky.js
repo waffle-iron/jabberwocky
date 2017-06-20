@@ -188,6 +188,7 @@ var Jabberwocky = function () {
     _classCallCheck(this, Jabberwocky);
 
     this.showLogin();
+    this.showRegister();
     this.auth = auth;
     this.messages = messages;
     this.email = '';
@@ -207,6 +208,27 @@ var Jabberwocky = function () {
         var username = document.getElementById('username');
         var password = document.getElementById('password');
         var result = auth.signIn(username.value, password.value);
+        return false;
+      };
+    }
+  }, {
+    key: 'showRegister',
+    value: function showRegister() {
+      var register = document.getElementById('register');
+      var main = document.getElementById('main');
+      var clone = document.importNode(register.content, true);
+      main.appendChild(clone);
+
+      var registerBtn = document.getElementById('register__btn');
+      registerBtn.onclick = function () {
+        var username = document.getElementById('register__username');
+        var password = document.getElementById('register__password');
+        var confirmPassword = document.getElementById('reigster__confirm_password');
+        if (password.value !== confirmPassword.value) {
+          console.error('passwords do not match');
+          return;
+        }
+        var result = auth.createUser(username.value, password.value);
         return false;
       };
     }

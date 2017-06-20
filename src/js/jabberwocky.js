@@ -1,6 +1,7 @@
 class Jabberwocky {
     constructor(auth, messages) {
         this.showLogin();
+        this.showRegister();
         this.auth = auth;
         this.messages = messages;
         this.email = '';
@@ -20,6 +21,25 @@ class Jabberwocky {
             return false;
         };
     }
+    showRegister() {
+        let register = document.getElementById('register');
+        let main = document.getElementById('main');
+        let clone = document.importNode(register.content, true);
+        main.appendChild(clone);
+
+        let registerBtn = document.getElementById('register__btn');
+        registerBtn.onclick = function() {
+          let username = document.getElementById('register__username');
+          let password = document.getElementById('register__password');
+          let confirmPassword = document.getElementById('reigster__confirm_password');
+          if(password.value !== confirmPassword.value) {
+            console.error('passwords do not match');
+            return;
+          }
+          let result = auth.createUser(username.value, password.value);
+          return false;
+        };
+      }
     sendMessage() {
       var self = this;
       let msgBox = document.getElementById('msg');
