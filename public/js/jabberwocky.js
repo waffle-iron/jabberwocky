@@ -79,10 +79,11 @@ var Messages = function () {
   _createClass(Messages, [{
     key: 'send',
     value: function send(message, from) {
+      var self = this;
       return this.database.ref('messages/').push({
         'date': Date(),
         'user': from,
-        'message': message
+        'message': self.aes.encrypt(message, from)
       }).key;
     }
   }, {
@@ -99,7 +100,7 @@ var Messages = function () {
     value: function update(element, data) {
       var el = document.getElementById(element);
       el.value += data.date + "\n";
-      el.value += data.user + ': ' + data.message + "\n";
+      el.value += data.user + ': ' + this.aes.decrypt(data.message, data.user) + "\n";
       el.scrollTop = el.scrollHeight;
     }
   }]);
