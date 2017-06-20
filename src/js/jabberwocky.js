@@ -20,6 +20,15 @@ class Jabberwocky {
             return false;
         };
     }
+    sendMessage() {
+      var self = this;
+      let msgBox = document.getElementById('msg');
+      if(msgBox.value != ""){
+        self.messages.send(msgBox.value, self.email);
+        msgBox.value = '';
+        return false
+      }
+    }
     showChat() {
         var self = this;
         // hide login
@@ -31,13 +40,16 @@ class Jabberwocky {
         main.innerHTML = '';
         let clone = document.importNode(chat.content, true);
         main.appendChild(clone);
+
         let send = document.getElementById('send');
-        send.onclick = function() {
-          let msgBox = document.getElementById('msg');
-          self.messages.send(msgBox.value, self.email);
-          msgBox.value = '';
-          return false;
-        };
+        send.onclick = this.sendMessage;
+
+        msg.onkeypress = function(){
+          if(e.keyCode == 13){
+            self.sendMessage();
+          }
+        }
+
         let logout = document.getElementById('logout');
         logout.onclick = function() {
           self.auth.signOut();

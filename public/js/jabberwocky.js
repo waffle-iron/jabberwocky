@@ -98,8 +98,38 @@ var Messages = function () {
     key: 'update',
     value: function update(element, data) {
       var el = document.getElementById(element);
-      el.value += data.date + "\n";
-      el.value += data.user + ': ' + data.message + "\n";
+
+      var msg = document.createElement("div");
+      var date = document.createElement("span");
+      var user = document.createElement("span");
+      var content = document.createElement("span");
+
+      msg.className = "msg";
+      date.className = "date";
+      user.className = "user";
+      content.className = "content";
+
+      var ts = new Date(data.date);
+      var m = ts.getMonth() + 1;
+      var d = ts.getDate();
+      var y = ts.getFullYear();
+      ts = m + "/" + d + "/" + y;
+
+      var textUser = document.createTextNode(data.user);
+      var textDate = document.createTextNode(ts);
+      var textContent = document.createTextNode(data.message);
+
+      date.appendChild(textDate);
+      user.appendChild(textUser);
+      content.appendChild(textContent);
+
+      msg.appendChild(user);
+      msg.appendChild(date);
+      msg.appendChild(content);
+      el.appendChild(msg);
+
+      //el.value += data.date + "\n";
+      //el.value += data.user + ': ' + data.message + "\n";
       el.scrollTop = el.scrollHeight;
     }
   }]);
@@ -153,74 +183,88 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Jabberwocky = function () {
-    function Jabberwocky(auth, messages) {
-        _classCallCheck(this, Jabberwocky);
+  function Jabberwocky(auth, messages) {
+    _classCallCheck(this, Jabberwocky);
 
-        this.showLogin();
-        this.auth = auth;
-        this.messages = messages;
-        this.email = '';
-        this.observer();
+    this.showLogin();
+    this.auth = auth;
+    this.messages = messages;
+    this.email = '';
+    this.observer();
+  }
+
+  _createClass(Jabberwocky, [{
+    key: 'showLogin',
+    value: function showLogin() {
+      var login = document.getElementById('login');
+      var main = document.getElementById('main');
+      main.innerHTML = '';
+      var clone = document.importNode(login.content, true);
+      main.appendChild(clone);
+      var loginBtn = document.getElementById('login__btn');
+      loginBtn.onclick = function () {
+        var username = document.getElementById('username');
+        var password = document.getElementById('password');
+        var result = auth.signIn(username.value, password.value);
+        return false;
+      };
     }
+  }, {
+    key: 'sendMessage',
+    value: function sendMessage() {
+      var self = this;
+      var msgBox = document.getElementById('msg');
+      if (msgBox.value != "") {
+        self.messages.send(msgBox.value, self.email);
+        msgBox.value = '';
+        return false;
+      }
+    }
+  }, {
+    key: 'showChat',
+    value: function showChat() {
+      var self = this;
+      // hide login
+      var login = document.getElementById('login');
+      login.style.display = 'none';
+      // show chat
+      var chat = document.getElementById('chat');
+      var main = document.getElementById('main');
+      main.innerHTML = '';
+      var clone = document.importNode(chat.content, true);
+      main.appendChild(clone);
 
-    _createClass(Jabberwocky, [{
-        key: 'showLogin',
-        value: function showLogin() {
-            var login = document.getElementById('login');
-            var main = document.getElementById('main');
-            main.innerHTML = '';
-            var clone = document.importNode(login.content, true);
-            main.appendChild(clone);
-            var loginBtn = document.getElementById('login__btn');
-            loginBtn.onclick = function () {
-                var username = document.getElementById('username');
-                var password = document.getElementById('password');
-                var result = auth.signIn(username.value, password.value);
-                return false;
-            };
-        }
-    }, {
-        key: 'showChat',
-        value: function showChat() {
-            var self = this;
-            // hide login
-            var login = document.getElementById('login');
-            login.style.display = 'none';
-            // show chat
-            var chat = document.getElementById('chat');
-            var main = document.getElementById('main');
-            main.innerHTML = '';
-            var clone = document.importNode(chat.content, true);
-            main.appendChild(clone);
-            var send = document.getElementById('send');
-            send.onclick = function () {
-                var msgBox = document.getElementById('msg');
-                self.messages.send(msgBox.value, self.email);
-                msgBox.value = '';
-                return false;
-            };
-            var logout = document.getElementById('logout');
-            logout.onclick = function () {
-                self.auth.signOut();
-                self.showLogin();
-                return false;
-            };
-            this.messages.read('msgs');
-        }
-    }, {
-        key: 'observer',
-        value: function observer() {
-            var self = this;
-            this.auth.onAuthStateChanged(function (user) {
-                if (user) {
-                    self.email = user.email;
-                    self.showChat();
-                }
-            });
-        }
-    }]);
+      var send = document.getElementById('send');
+      send.onclick = this.sendMessage;
 
-    return Jabberwocky;
+      msg.onkeypress = function () {
+        if (e.keyCode == 13) {
+          self.sendMessage();
+        }
+      };
+
+      var logout = document.getElementById('logout');
+      logout.onclick = function () {
+        self.auth.signOut();
+        self.showLogin();
+        return false;
+      };
+      this.messages.read('msgs');
+    }
+  }, {
+    key: 'observer',
+    value: function observer() {
+      var self = this;
+      this.auth.onAuthStateChanged(function (user) {
+        if (user) {
+          self.email = user.email;
+          self.showChat();
+        }
+      });
+    }
+  }]);
+
+  return Jabberwocky;
 }();
 
 var fbAuth = firebase.auth();
