@@ -183,8 +183,48 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var Profile = function () {
+  function Profile(database) {
+    _classCallCheck(this, Profile);
+
+    this.database = database;
+    this.nickname = 'pond hoe';
+  }
+
+  _createClass(Profile, [{
+    key: 'load',
+    value: function load() {
+      var self = this;
+
+      var profile = document.getElementById('profile');
+      var container = document.getElementById('head_main');
+      var clone = document.importNode(profile.content, true);
+      container.appendChild(clone);
+      var profile__save = document.getElementById('profile__save');
+      profile__save.onclick = function () {
+        var nicknameEl = document.getElementById('nickname');
+        self.nickname = nicknameEl.value;
+        return self.database.ref('profiles/' + firebase.auth().getUid() + '/').set({
+          'date': Date(),
+          'nickname': nicknameEl.value
+        }).key;
+      };
+    }
+  }, {
+    key: 'getNick',
+    value: function getNick() {}
+  }]);
+
+  return Profile;
+}();
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var Jabberwocky = function () {
-  function Jabberwocky(auth, messages) {
+  function Jabberwocky(auth, messages, profile) {
     _classCallCheck(this, Jabberwocky);
 
     this.showLogin();
@@ -192,6 +232,7 @@ var Jabberwocky = function () {
     this.auth = auth;
     this.messages = messages;
     this.email = '';
+    this.profile = profile;
     this.observer();
   }
 
@@ -282,6 +323,7 @@ var Jabberwocky = function () {
         if (user) {
           self.email = user.email;
           self.showChat();
+          self.profile.load();
         }
       });
     }
@@ -296,4 +338,6 @@ var database = firebase.database();
 var messages = new Messages(database, new Aes());
 var auth = new Auth(fbAuth);
 
-var jw = new Jabberwocky(fbAuth, messages);
+var profile = new Profile(database);
+
+var jw = new Jabberwocky(fbAuth, messages, profile);

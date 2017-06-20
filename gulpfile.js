@@ -13,6 +13,7 @@ gulp.task('scripts:transpile', function() {
     './src/js/Auth.js',
     './src/js/Messages.js',
     './src/js/Aes.js',
+    './src/js/Profile.js',
     './src/js/jabberwocky.js'
   ])
   .pipe(babel({ presets: ['es2015'] }))

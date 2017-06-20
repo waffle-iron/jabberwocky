@@ -1,10 +1,11 @@
 class Jabberwocky {
-    constructor(auth, messages) {
+    constructor(auth, messages, profile) {
         this.showLogin();
         this.showRegister();
         this.auth = auth;
         this.messages = messages;
         this.email = '';
+        this.profile = profile;
         this.observer();
     }
     showLogin() {
@@ -84,6 +85,7 @@ class Jabberwocky {
         if (user) {
           self.email = user.email;
           self.showChat();
+          self.profile.load();
         }
       });
     }
@@ -94,4 +96,6 @@ let database = firebase.database();
 let messages = new Messages(database, new Aes);
 let auth = new Auth(fbAuth);
 
-let jw = new Jabberwocky(fbAuth, messages);
+let profile = new Profile(database);
+
+let jw = new Jabberwocky(fbAuth, messages, profile);
