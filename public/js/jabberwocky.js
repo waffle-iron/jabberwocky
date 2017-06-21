@@ -70,5 +70,5 @@ var User = function () {
 var template = new Template();
 var auth = new User();
 template.load('login', 'main');
-template.load('register', 'main');
 template.listen('login', auth.login);
+template.load('register', 'main');
