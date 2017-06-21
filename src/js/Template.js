@@ -10,12 +10,24 @@ class Template {
     let c = document.getElementById(container + '__container');
     let l = document.importNode(t.content, true);
     c.appendChild(l);
+    return this;
   }
 
-  listen(el, object, method) {
+  /** 
+   * Empty a container 
+   * @param  {string} container name of the container 
+   * @return {Template} 
+   */ 
+  empty(container) { 
+    let c = document.getElementById(container + '__container'); 
+    c.innerHTML = ''; 
+    return this; 
+  }
+
+  listen(el, object, callback) {
     let t = document.getElementById(el + '__button');
     t.onclick = function() {
-      object[method]();
+      object[callback]();
     }
   }
 }

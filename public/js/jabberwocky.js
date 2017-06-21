@@ -23,21 +23,28 @@ var Template = function () {
       var c = document.getElementById(container + '__container');
       var l = document.importNode(t.content, true);
       c.appendChild(l);
+      return this;
     }
 
-    /**
-     * Event listener for clicks.
-     * @param  {string}   el       name of template
-     * @param  {Function} callback action
-     * @return void
+    /** 
+     * Empty a container 
+     * @param  {string} container name of the container 
+     * @return {Template} 
      */
 
   }, {
+    key: 'empty',
+    value: function empty(container) {
+      var c = document.getElementById(container + '__container');
+      c.innerHTML = '';
+      return this;
+    }
+  }, {
     key: 'listen',
-    value: function listen(el, callback) {
+    value: function listen(el, object, callback) {
       var t = document.getElementById(el + '__button');
       t.onclick = function () {
-        callback();
+        object[callback]();
       };
     }
   }]);
@@ -56,9 +63,23 @@ var User = function () {
   }
 
   _createClass(User, [{
+    key: 'register',
+    value: function register() {
+      this.getValues('register');
+    }
+  }, {
     key: 'login',
-    value: function login(email, password) {
-      console.log('logging in');
+    value: function login() {
+      this.getValues('login');
+    }
+  }, {
+    key: 'logout',
+    value: function logout() {}
+  }, {
+    key: 'getValues',
+    value: function getValues(type) {
+      this.email = document.getElementById(type + '_email__input');
+      this.password = document.getElementById(type + '_password__input');
     }
   }]);
 
@@ -116,6 +137,5 @@ var Message = function Message() {
 var template = new Template();
 var user = new User();
 var message = new Message();
-template.load('login', 'main');
-template.listen('login', user.login);
+template.empty('main').load('login', 'main').listen('login', user, 'login');
 template.load('register', 'main');
