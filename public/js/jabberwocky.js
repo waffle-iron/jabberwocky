@@ -100,7 +100,7 @@ var Encryption = function () {
     _classCallCheck(this, Encryption);
   }
 
-  _createClass(Encryption, [{
+  _createClass(Encryption, null, [{
     key: "encrypt",
 
     /**
@@ -168,7 +168,7 @@ var Message = function () {
 
       var textUser = document.createTextNode(data.user);
       var textDate = document.createTextNode(ts);
-      var textContent = document.createTextNode(encryption.decrypt(data.message, data.user));
+      var textContent = document.createTextNode(Encryption.decrypt(data.message, data.user));
 
       date.appendChild(textDate);
       user.appendChild(textUser);
@@ -190,11 +190,18 @@ var Message = function () {
 var template = new Template();
 var user = new User();
 var message = new Message();
-var encryption = new Encryption();
-template.empty('main').load('login', 'main').listen('login', user, 'login');
-template.load('register', 'main');
-template.load('chat', 'main');
+// template 
+//   .empty('main') 
+//   .load('login', 'main') 
+//   .listen('login', user, 'login'); 
+// template.load('register', 'main');
+template.empty('main').load('chat', 'main');
 template.listen('chat', message, 'send');
+
+var msgsRef = firebase.database().ref('messages/');
+msgsRef.on('child_added', function (data) {
+  message.update('chat__messages', data.val());
+});
 
 // let msgsRef = firebase.database().ref('messages/');
 // msgsRef.on('child_added', function(data) {

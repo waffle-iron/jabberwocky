@@ -25,7 +25,7 @@ class Message {
     let textUser = document.createTextNode(data.user);
     let textDate = document.createTextNode(ts);
     let textContent = document.createTextNode(
-      encryption.decrypt(data.message, data.user)
+      Encryption.decrypt(data.message, data.user)
     );
 
     date.appendChild(textDate);

@@ -1,7 +1,7 @@
 body{
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
-#msgs{
+#chat__messages{
 	border: 1px solid #CCC;
 	box-sizing: border-box;
 	height: calc(100vh - 210px);

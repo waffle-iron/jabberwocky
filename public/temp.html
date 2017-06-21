@@ -1,11 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>temp</title>
+    <title>jabberwocky chat</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style type="text/css">
+        textarea {height:200px;}
+        textarea, input {display: block;width:100%;}
+        .stripe {width:100%;height:15px;background:#002f6c;}
+        .header {background: #01579b; color:#fff;margin-bottom:20px;}
+        header {font-size:20px;line-height: 40px;}
+        button, button:active, button:focus {
+            background-color:#01579b;
+            color:#fff;
+            -webkit-transition: background-color .3s, color .3s;
+            transition: background-color .3s, color .3s;
+        }
+        button:hover {
+            background-color: #4f83cc;
+            color:#000;
+        }
+        #logout {position: fixed;top:20px;right:50px;color:#fff;}
+    </style>
 </head>
 <body>
-<div id="main__container"></div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60460010-3', 'auto');
+  ga('send', 'pageview');
+</script>
+<div class="stripe"></div>
+<div class="header">
+    <div class="container">
+        <header>jabberwocky</header>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="twelve columns" id="main__container">
+            
+        </div>
+    </div>
+</div>
 <template id="login__template">
     login
     <input type="text" id="login_email__input">
@@ -28,6 +70,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/aes.min.js"></script>
-<script src="js/jabberwocky.js"></script>
+<script src="/__/firebase/3.9.0/firebase-app.js"></script>
+<script src="/__/firebase/3.9.0/firebase-auth.js"></script>
+<script src="/__/firebase/3.9.0/firebase-database.js"></script>
+<script src="/__/firebase/init.js"></script>
+<script src="/js/jabberwocky.js"></script>
 </body>
 </html>
