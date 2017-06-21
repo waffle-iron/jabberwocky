@@ -65,10 +65,57 @@ var User = function () {
   return User;
 }();
 "use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Encryption = function () {
+  function Encryption() {
+    _classCallCheck(this, Encryption);
+  }
+
+  _createClass(Encryption, [{
+    key: "encrypt",
+
+    /**
+     * encrypt a message
+     * @param  {string} message    message to encrypt
+     * @param  {string} passphrase passphrase to use
+     * @return {string}            encrypted message
+     */
+    value: function encrypt(message, passphrase) {
+      return CryptoJS.AES.encrypt(message, passphrase).toString();
+    }
+
+    /**
+     * decrypt a message
+     * @param  {string} message    encrypted message
+     * @param  {string} passphrase passphrase used to encrypt the message
+     * @return {string}            decrypted message
+     */
+
+  }, {
+    key: "decrypt",
+    value: function decrypt(message, passphrase) {
+      return CryptoJS.AES.decrypt(message, passphrase).toString(CryptoJS.enc.Utf8);
+    }
+  }]);
+
+  return Encryption;
+}();
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Message = function Message() {
+  _classCallCheck(this, Message);
+};
 'use strict';
 
 var template = new Template();
-var auth = new User();
+var user = new User();
+var message = new Message();
 template.load('login', 'main');
-template.listen('login', auth.login);
+template.listen('login', user.login);
 template.load('register', 'main');

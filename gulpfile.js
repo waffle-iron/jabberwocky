@@ -12,6 +12,7 @@ gulp.task('scripts:transpile', function() {
   return gulp.src([
     './src/js/Template.js',
     './src/js/User.js',
+    './src/js/Encryption.js',
     './src/js/Message.js',
     './src/js/jabberwocky.js'
   ])
