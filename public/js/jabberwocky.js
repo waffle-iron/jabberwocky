@@ -203,7 +203,7 @@ var Profile = function () {
       });
 
       var profile = document.getElementById('profile');
-      var container = document.getElementById('head_main');
+      var container = document.getElementById('main');
       var clone = document.importNode(profile.content, true);
       container.appendChild(clone);
       var profile__save = document.getElementById('profile__save');

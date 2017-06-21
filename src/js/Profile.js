@@ -13,7 +13,7 @@ class Profile {
     });
 
     let profile = document.getElementById('profile');
-    let container = document.getElementById('head_main');
+    let container = document.getElementById('main');
     let clone = document.importNode(profile.content, true);
     container.appendChild(clone);
     let profile__save = document.getElementById('profile__save');
