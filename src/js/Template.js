@@ -12,16 +12,10 @@ class Template {
     c.appendChild(l);
   }
 
-  /**
-   * Event listener for clicks.
-   * @param  {string}   el       name of template
-   * @param  {Function} callback action
-   * @return void
-   */
-  listen(el, callback) {
+  listen(el, object, method) {
     let t = document.getElementById(el + '__button');
     t.onclick = function() {
-      callback();
+      object[method]();
     }
   }
 }
