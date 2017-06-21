@@ -6,6 +6,12 @@ class Profile {
   load() {
     var self = this;
 
+    let userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('/profiles/' + userId).once('value').then(function(snapshot) {
+      let nickname = snapshot.val().nickname;
+      self.nickname = nickname;
+    });
+
     let profile = document.getElementById('profile');
     let container = document.getElementById('head_main');
     let clone = document.importNode(profile.content, true);
@@ -19,9 +25,5 @@ class Profile {
         'nickname': nicknameEl.value
       }).key;
     };
-  }
-
-  getNick() {
-
   }
 }

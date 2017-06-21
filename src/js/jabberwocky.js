@@ -45,7 +45,8 @@ class Jabberwocky {
       var self = this;
       let msgBox = document.getElementById('msg');
       if(msgBox.value != ""){
-        self.messages.send(msgBox.value, self.email);
+        console.log(self.nickname);
+        self.messages.send(msgBox.value, self.profile.nickname);
         msgBox.value = '';
         return false
       }
@@ -63,7 +64,9 @@ class Jabberwocky {
         main.appendChild(clone);
 
         let send = document.getElementById('send');
-        send.onclick = this.sendMessage;
+        send.onclick = function() {
+          self.sendMessage();
+        };
 
         msg.onkeypress = function(e){
           if(e.keyCode == 13){
@@ -85,7 +88,7 @@ class Jabberwocky {
         if (user) {
           self.email = user.email;
           self.showChat();
-          self.profile.load();
+          self.nickname = self.profile.load();
         }
       });
     }

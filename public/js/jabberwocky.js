@@ -196,6 +196,12 @@ var Profile = function () {
     value: function load() {
       var self = this;
 
+      var userId = firebase.auth().currentUser.uid;
+      firebase.database().ref('/profiles/' + userId).once('value').then(function (snapshot) {
+        var nickname = snapshot.val().nickname;
+        self.nickname = nickname;
+      });
+
       var profile = document.getElementById('profile');
       var container = document.getElementById('head_main');
       var clone = document.importNode(profile.content, true);
@@ -210,9 +216,6 @@ var Profile = function () {
         }).key;
       };
     }
-  }, {
-    key: 'getNick',
-    value: function getNick() {}
   }]);
 
   return Profile;
@@ -279,7 +282,8 @@ var Jabberwocky = function () {
       var self = this;
       var msgBox = document.getElementById('msg');
       if (msgBox.value != "") {
-        self.messages.send(msgBox.value, self.email);
+        console.log(self.nickname);
+        self.messages.send(msgBox.value, self.profile.nickname);
         msgBox.value = '';
         return false;
       }
@@ -299,7 +303,9 @@ var Jabberwocky = function () {
       main.appendChild(clone);
 
       var send = document.getElementById('send');
-      send.onclick = this.sendMessage;
+      send.onclick = function () {
+        self.sendMessage();
+      };
 
       msg.onkeypress = function (e) {
         if (e.keyCode == 13) {
@@ -323,7 +329,7 @@ var Jabberwocky = function () {
         if (user) {
           self.email = user.email;
           self.showChat();
-          self.profile.load();
+          self.nickname = self.profile.load();
         }
       });
     }
