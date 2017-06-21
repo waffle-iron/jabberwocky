@@ -10,9 +10,9 @@ autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('scripts:transpile', function() {
   return gulp.src([
-    './src/js/Auth.js',
-    './src/js/Messages.js',
-    './src/js/Aes.js',
+    './src/js/Template.js',
+    './src/js/User.js',
+    './src/js/Message.js',
     './src/js/jabberwocky.js'
   ])
   .pipe(babel({ presets: ['es2015'] }))
