@@ -4,7 +4,8 @@ class User {
   } 
  
   login() {
-    this.getValues('login'); 
+    this.getValues('login');
+    console.log(encryption.encrypt(this.email.value, 'test'));
   } 
  
   logout() { 
@@ -12,7 +13,7 @@ class User {
   }
 
   getValues(type) { 
-    this.email = document.getElementById(type + '_email__input'); 
-    this.password = document.getElementById(type + '_password__input'); 
+    this.email = document.getElementById(type + '_email__input');
+    this.password = document.getElementById(type + '_password__input');
   }
 }
