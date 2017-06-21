@@ -2,6 +2,20 @@
 
 **a webchat app** using firebase.
 
-## resources
-
-https://github.com/remy/bind.js
+User.js
+- createUser
+- signIn
+- signOut
+- editUser
+Encryption.js
+- encrypt
+- decrypt
+Messages.js
+- send
+- listen
+- loadPreviousMessages
+Templates.js
+- load
+- show
+- hide
+- getEl
