@@ -40,6 +40,9 @@ var Template = function () {
       return this;
     }
   }, {
+    key: 'observe',
+    value: function observe(el, object, callback) {}
+  }, {
     key: 'listen',
     value: function listen(el, object, callback) {
       var t = document.getElementById(el + '__button');
@@ -125,17 +128,74 @@ var Encryption = function () {
 
   return Encryption;
 }();
-"use strict";
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Message = function Message() {
-  _classCallCheck(this, Message);
-};
+var Message = function () {
+  function Message() {
+    _classCallCheck(this, Message);
+  }
+
+  _createClass(Message, [{
+    key: 'send',
+    value: function send() {
+      console.log('send');
+    }
+  }, {
+    key: 'update',
+    value: function update(element, data) {
+      var el = document.getElementById(element);
+
+      var msg = document.createElement('div');
+      var date = document.createElement('span');
+      var user = document.createElement('span');
+      var content = document.createElement('span');
+
+      msg.className = 'msg';
+      date.className = 'date';
+      user.className = 'user';
+      content.className = 'content';
+
+      var ts = new Date(data.date);
+      var m = ts.getMonth() + 1;
+      var d = ts.getDate();
+      var y = ts.getFullYear();
+      ts = m + '/' + d + '/' + y;
+
+      var textUser = document.createTextNode(data.user);
+      var textDate = document.createTextNode(ts);
+      var textContent = document.createTextNode(encryption.decrypt(data.message, data.user));
+
+      date.appendChild(textDate);
+      user.appendChild(textUser);
+      content.appendChild(textContent);
+
+      msg.appendChild(user);
+      msg.appendChild(date);
+      msg.appendChild(content);
+      el.appendChild(msg);
+
+      el.scrollTop = el.scrollHeight;
+    }
+  }]);
+
+  return Message;
+}();
 'use strict';
 
 var template = new Template();
 var user = new User();
 var message = new Message();
+var encryption = new Encryption();
 template.empty('main').load('login', 'main').listen('login', user, 'login');
 template.load('register', 'main');
+template.load('chat', 'main');
+template.listen('chat', message, 'send');
+
+var msgsRef = firebase.database().ref('messages/');
+msgsRef.on('child_added', function (data) {
+  message.update('chat__messages', data.val());
+});
