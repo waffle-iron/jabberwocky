@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/weenio/jabberwocky.png?label=ready&title=Ready)](https://waffle.io/weenio/jabberwocky?utm_source=badge)
 # jabberwocky
 
 **a webchat app** using firebase.
