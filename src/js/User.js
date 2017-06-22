@@ -5,7 +5,9 @@ class User {
  
   login() {
     this.getValues('login');
-    console.log(encryption.encrypt(this.email.value, 'test'));
+    return firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function(error) {
+      return errorMessage = error.message;
+    });
   } 
  
   logout() { 
@@ -17,7 +19,7 @@ class User {
   }
 
   getValues(type) { 
-    this.email = document.getElementById(type + '_email__input');
-    this.password = document.getElementById(type + '_password__input');
+    this.email = document.getElementById(type + '_email__input').value;
+    this.password = document.getElementById(type + '_password__input').value;
   }
 }

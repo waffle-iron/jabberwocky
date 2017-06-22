@@ -13,6 +13,7 @@ template.load('head_out', 'head');
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+    console.log(user.photoURL);
     template.empty('main').load('chat', 'main');
     template.listen('chat', message, 'send');
     template.empty('head').load('head_in', 'head');

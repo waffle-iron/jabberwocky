@@ -75,7 +75,9 @@ var User = function () {
     key: 'login',
     value: function login() {
       this.getValues('login');
-      console.log(encryption.encrypt(this.email.value, 'test'));
+      return firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function (error) {
+        return errorMessage = error.message;
+      });
     }
   }, {
     key: 'logout',
@@ -89,8 +91,8 @@ var User = function () {
   }, {
     key: 'getValues',
     value: function getValues(type) {
-      this.email = document.getElementById(type + '_email__input');
-      this.password = document.getElementById(type + '_password__input');
+      this.email = document.getElementById(type + '_email__input').value;
+      this.password = document.getElementById(type + '_password__input').value;
     }
   }]);
 
@@ -219,6 +221,7 @@ template.load('head_out', 'head');
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
+    console.log(user.photoURL);
     template.empty('main').load('chat', 'main');
     template.listen('chat', message, 'send');
     template.empty('head').load('head_in', 'head');
