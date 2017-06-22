@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git status
+
 echo -n "Enter object name and press [ENTER]: "
 read name
 echo -n "Enter the changes and press [ENTER]: "
