@@ -15,6 +15,8 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     template.empty('main').load('chat', 'main');
     template.listen('chat', message, 'send');
+    template.enter('chat__message', message, 'send');
+
     template.empty('head').load('head_in', 'head');
     template.listen('head_in', jwUser, 'logout');
 

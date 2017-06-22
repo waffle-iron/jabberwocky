@@ -34,4 +34,13 @@ class Template {
       object[callback]();
     }
   }
+
+  enter(el, object, callback) {
+    let t = document.getElementById(el);
+    return t.onkeypress = function(e) {
+      if(e.keyCode === 13) {
+        object[callback]();
+      }
+    }
+  }
 }

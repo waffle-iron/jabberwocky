@@ -50,6 +50,16 @@ var Template = function () {
         object[callback]();
       };
     }
+  }, {
+    key: 'enter',
+    value: function enter(el, object, callback) {
+      var t = document.getElementById(el);
+      return t.onkeypress = function (e) {
+        if (e.keyCode === 13) {
+          object[callback]();
+        }
+      };
+    }
   }]);
 
   return Template;
@@ -225,6 +235,8 @@ firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     template.empty('main').load('chat', 'main');
     template.listen('chat', message, 'send');
+    template.enter('chat__message', message, 'send');
+
     template.empty('head').load('head_in', 'head');
     template.listen('head_in', jwUser, 'logout');
 
