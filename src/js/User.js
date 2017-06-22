@@ -1,6 +1,9 @@
 class User {
   register() {
     this.getValues('register');
+    firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(function(error) {
+      return error.message;
+    });
   } 
  
   login() {
@@ -12,7 +15,7 @@ class User {
  
   logout() { 
     firebase.auth().signOut().then(function() {
-      //this.showLogin();
+      location.reload(true);
     }).catch(function(error) {
       // An error happened.
     });

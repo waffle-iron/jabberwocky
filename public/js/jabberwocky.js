@@ -47,7 +47,6 @@ var Template = function () {
     value: function listen(el, object, callback) {
       var t = document.getElementById(el + '__button');
       return t.onclick = function () {
-        console.log(object);
         object[callback]();
       };
     }
@@ -70,6 +69,9 @@ var User = function () {
     key: 'register',
     value: function register() {
       this.getValues('register');
+      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(function (error) {
+        return error.message;
+      });
     }
   }, {
     key: 'login',
@@ -83,7 +85,7 @@ var User = function () {
     key: 'logout',
     value: function logout() {
       firebase.auth().signOut().then(function () {
-        //this.showLogin();
+        location.reload(true);
       }).catch(function (error) {
         // An error happened.
       });
@@ -221,7 +223,6 @@ template.load('head_out', 'head');
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    console.log(user.photoURL);
     template.empty('main').load('chat', 'main');
     template.listen('chat', message, 'send');
     template.empty('head').load('head_in', 'head');
