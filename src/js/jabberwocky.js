@@ -18,7 +18,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     template.empty('head').load('head_in', 'head');
     template.listen('head_in', jwUser, 'logout');
 
-    let msgsRef = firebase.database().ref('messages/');
+    let msgsRef = firebase.database().ref('messages/').limitToLast(100);
     msgsRef.on('child_added', function(data) {
       message.update('chat__messages', data.val());
     });
