@@ -30,7 +30,8 @@ class Template {
 
   listen(el, object, callback) {
     let t = document.getElementById(el + '__button');
-    t.onclick = function() {
+    return t.onclick = function() {
+      console.log(object);
       object[callback]();
     }
   }

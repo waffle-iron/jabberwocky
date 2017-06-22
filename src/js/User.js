@@ -9,7 +9,11 @@ class User {
   } 
  
   logout() { 
- 
+    firebase.auth().signOut().then(function() {
+      //this.showLogin();
+    }).catch(function(error) {
+      // An error happened.
+    });
   }
 
   getValues(type) { 

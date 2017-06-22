@@ -46,7 +46,8 @@ var Template = function () {
     key: 'listen',
     value: function listen(el, object, callback) {
       var t = document.getElementById(el + '__button');
-      t.onclick = function () {
+      return t.onclick = function () {
+        console.log(object);
         object[callback]();
       };
     }
@@ -78,7 +79,13 @@ var User = function () {
     }
   }, {
     key: 'logout',
-    value: function logout() {}
+    value: function logout() {
+      firebase.auth().signOut().then(function () {
+        //this.showLogin();
+      }).catch(function (error) {
+        // An error happened.
+      });
+    }
   }, {
     key: 'getValues',
     value: function getValues(type) {
@@ -201,19 +208,21 @@ var Message = function () {
 'use strict';
 
 var template = new Template();
-var user = new User();
+var jwUser = new User();
 var message = new Message();
 
 var email = '';
 
-template.empty('main').load('login', 'main').listen('login', user, 'login');
+template.empty('main').load('login', 'main').listen('login', jwUser, 'login');
 template.load('register', 'main');
+template.load('head_out', 'head');
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    console.log(user);
     template.empty('main').load('chat', 'main');
     template.listen('chat', message, 'send');
+    template.empty('head').load('head_in', 'head');
+    template.listen('head_in', jwUser, 'logout');
 
     var msgsRef = firebase.database().ref('messages/');
     msgsRef.on('child_added', function (data) {
