@@ -1,6 +1,19 @@
 class Message {
   send() {
-    console.log('send');
+    let msgBox = document.getElementById('chat__message');
+    let email = firebase.auth().currentUser.email;
+
+    if(msgBox.value != "") {
+      firebase.database().ref('messages/').push({
+        'date': Date(),
+        'user': email,
+        'message': Encryption.encrypt(msgBox.value, email)
+      }).key;
+
+      msgBox.value = '';
+
+      return false
+    }
   }
 
   update(element, data) {

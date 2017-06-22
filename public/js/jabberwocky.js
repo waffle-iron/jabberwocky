@@ -143,7 +143,20 @@ var Message = function () {
   _createClass(Message, [{
     key: 'send',
     value: function send() {
-      console.log('send');
+      var msgBox = document.getElementById('chat__message');
+      var email = firebase.auth().currentUser.email;
+
+      if (msgBox.value != "") {
+        firebase.database().ref('messages/').push({
+          'date': Date(),
+          'user': email,
+          'message': Encryption.encrypt(msgBox.value, email)
+        }).key;
+
+        msgBox.value = '';
+
+        return false;
+      }
     }
   }, {
     key: 'update',
@@ -191,26 +204,20 @@ var template = new Template();
 var user = new User();
 var message = new Message();
 
+var email = '';
+
 template.empty('main').load('login', 'main').listen('login', user, 'login');
 template.load('register', 'main');
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
+    console.log(user);
     template.empty('main').load('chat', 'main');
     template.listen('chat', message, 'send');
+
+    var msgsRef = firebase.database().ref('messages/');
+    msgsRef.on('child_added', function (data) {
+      message.update('chat__messages', data.val());
+    });
   }
 });
-
-var msgsRef = firebase.database().ref('messages/');
-msgsRef.on('child_added', function (data) {
-  message.update('chat__messages', data.val());
-});
-
-/*
-var self = this;
-    return this.database.ref('messages/').push({
-      'date': Date(),
-      'user': from,
-      'message': self.aes.encrypt(message, from)
-    }).key;
- */
