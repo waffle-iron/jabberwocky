@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>jabberwocky chat</title>
-	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="/css/skeleton.css">
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
-	<style type="text/css">
-		textarea {height:200px;}
-		textarea, input {display: block;width:100%;}
-		.stripe {width:100%;height:15px;background:#002f6c;}
-		.header {background: #01579b; color:#fff;margin-bottom:20px;}
-		header {font-size:20px;line-height: 40px;}
-		button, button:active, button:focus {
-			background-color:#01579b;
-			color:#fff;
-			-webkit-transition: background-color .3s, color .3s;
-			transition: background-color .3s, color .3s;
-		}
-		button:hover {
-			background-color: #4f83cc;
-			color:#000;
-		}
-		#logout {position: fixed;top:20px;right:50px;color:#fff;}
-	</style>
+    <title>jabberwocky chat</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style type="text/css">
+        textarea {height:200px;}
+        textarea, input {display: block;width:100%;}
+        .stripe {width:100%;height:15px;background:#002f6c;}
+        .header {background: #01579b; color:#fff;margin-bottom:20px;}
+        header {font-size:20px;line-height: 40px;}
+        button, button:active, button:focus {
+            background-color:#01579b;
+            color:#fff;
+            -webkit-transition: background-color .3s, color .3s;
+            transition: background-color .3s, color .3s;
+        }
+        button:hover {
+            background-color: #4f83cc;
+            color:#000;
+        }
+        #logout {position: fixed;top:20px;right:50px;color:#fff;}
+    </style>
 </head>
 <body>
 <script>
@@ -39,36 +39,39 @@
 <div class="header">
     <div class="container">
         <header>jabberwocky</header>
+        <div id="head__container"></div>
     </div>
 </div>
 <div class="container">
     <div class="row">
-        <div class="twelve columns" id="main">
+        <div class="twelve columns" id="main__container">
             
         </div>
     </div>
 </div>
-<template id="register">
-    <h2>Register</h2>
-    <input type="email" id="register__username" placeholder="email address">
-    <input type="password" id="register__password" placeholder="password">
-    <input type="password" id="reigster__confirm_password" placeholder="confirm password">
-    <button id="register__btn">register</button>
+<template id="head_in__template">
+    <a href="#" id="head_in__button">logout</a>
 </template>
-<template id="login">
+<template id="head_out__template">
+    login
+</template>
+<template id="login__template">
     <h2>Login</h2>
-    <input type="email" id="username" placeholder="email address">
-    <input type="password" id="password" placeholder="password">
-    <button id="login__btn">login</button>
+    <input type="email" id="login_email__input" placeholder="email">
+    <input type="password" id="login_password__input" placeholder="password">
+    <button id="login__button">login</button>
 </template>
-<template id="chat">
-	<div id="msgs"></div>
+<template id="register__template">
+    <h2>Register</h2>
+    <input type="email" id="register_email__input" placeholder="email">
+    <input type="password" id="register_password__input" placeholder="password">
+    <button id="register__button">register</button>
+</template>
+<template id="chat__template">
+    <div id="chat__messages"></div>
 
-    <input type="text" name="msg" id="msg">
-    <button id="send">Send</button>
-    <div class="row">
-        <a href="#" id="logout">logout</a>
-    </div>
+    <input type="text" name="msg" id="chat__message">
+    <button id="chat__button">Send</button>
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
@@ -78,6 +81,6 @@
 <script src="/__/firebase/3.9.0/firebase-auth.js"></script>
 <script src="/__/firebase/3.9.0/firebase-database.js"></script>
 <script src="/__/firebase/init.js"></script>
-<script src="/js/jabberwocky.js"></script>
+<script src="/js/jabberwocky.min.js"></script>
 </body>
 </html>

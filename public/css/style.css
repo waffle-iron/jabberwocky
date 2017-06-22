@@ -12,6 +12,10 @@ body{
 	width: 100%;
 }
 
+header {float:left;}
+#head__container {float:right;line-height: 40px;}
+#head__container a {color:#f5f5f6;text-decoration: none;}
+
 .msg{
 	margin-bottom: 12px;
 	word-wrap: break-word;
